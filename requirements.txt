@@ -1,0 +1,15 @@
+langchain
+langchain-community
+langchain-core
+langgraph
+langgraph-swarm
+pymongo
+langchain-mongodb
+langgraph-checkpoint-mongodb
+langchain-aws
+boto3
+langchain-fireworks
+streamlit
+streamlit-extras
+python-dotenv
+watchdog
