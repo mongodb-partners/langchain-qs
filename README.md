@@ -11,7 +11,7 @@ This repository implements a graph-based multi-agent RAG system with the followi
 - **Streamlit Web Interface**: Provides an interactive UI for querying the system
 - **Integration with LLMs**: Uses various large language models to power the agents
 
-![Architecture](/static/agents_nodes_graph.png.jpg)
+![Architecture](/static/agents_nodes_graph.png)
 
 ## Prerequisites
 
