@@ -47,44 +47,11 @@ GROUP_ID=
 # Add other API keys as needed
 ```
 
-## Building the Index
-
-Build the search index using the provided Makefile target:
-```bash
-make build-index
-```
-
-## One-Click Deployment
-
-Deploy the application instantly to your preferred cloud platform:
-
-### Deploy to Streamlit Cloud
-```bash
-make deploy-streamlit
-```
-
-### Deploy to Hugging Face Spaces
-```bash
-make deploy-hf-spaces
-```
-
-### Deploy to AWS
-```bash
-# Configure your AWS credentials first
-make deploy-aws
-```
-
-### Deploy to Google Cloud
-```bash
-# Authenticate with Google Cloud first
-make deploy-gcloud
-```
-
 ## Running the Application
 
 Start the Streamlit app:
 ```bash
-make run
+make all
 ```
 
 The application will be available at `http://localhost:8501` by default.
