@@ -1,6 +1,6 @@
 services:
   logger:
-    image: public.ecr.aws/s2e1n3u8/mongodb-cohere:latest
+    image: public.ecr.aws/s2e1n3u8/maap-langchain-qs:latest
     env_file:
       - .env
     environment:

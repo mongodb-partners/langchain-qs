@@ -20,7 +20,7 @@ load_dotenv()
 os.environ["STREAMLIT_SERVER_ENABLE_STATIC_SERVING"] = "true"
 CUSTOM_HTML = """
 <div class="banner">
-    <img src="./app/static/MDB-langchain.jpg" alt="MongoDB + Langchain Img">
+    <img src="./static/MDB-langchain.jpg" alt="MongoDB + Langchain Img">
 </div>
 <style>
     .banner {
@@ -73,7 +73,7 @@ with tab:
     st.markdown(CUSTOM_HTML, unsafe_allow_html=True)
 with tab1:
     st.markdown(
-        """<img src="./app/static/agents_nodes_graph.png.jpg" class=" css-1lo3ubz" alt="Architecture logo" style="height:auto;width:auto;align:center"> """,
+        """<img src="./static/agents_nodes_graph.png" class=" css-1lo3ubz" alt="Architecture logo" style="height:auto;width:auto;align:center"> """,
         unsafe_allow_html=True)
 
 with tab2:
@@ -81,7 +81,7 @@ with tab2:
         st.title("Multi Agent RAG System", "🔍")
         # table of images side by side
         st.markdown(
-            """<img src="./app/static/legal_advisor_iteration1.jpg" class=" css-1lo3ubz" alt="Architecture logo" style="height:auto;width:auto"> """,
+            """<img src="./static/legal_advisor_iteration1.jpg" class=" css-1lo3ubz" alt="Architecture logo" style="height:auto;width:auto"> """,
             unsafe_allow_html=True)
 
         # Dropdown to choose an LLM model with a button to refresh the model

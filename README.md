@@ -95,9 +95,6 @@ For convenience, the following make commands are available:
 
 ```bash
 make help        # Show all available commands
-make clean       # Remove generated files
-make clean-all   # Remove generated files and virtual environment
-make deploy      # Run one-click deployment wizard
 ```
 
 ## Contributing

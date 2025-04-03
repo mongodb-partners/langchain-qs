@@ -14,6 +14,8 @@ from langchain_core.language_models import BaseChatModel
 from langchain_aws import BedrockEmbeddings, ChatBedrock
 from langchain_fireworks import ChatFireworks
 from langgraph.checkpoint.mongodb import MongoDBSaver
+from langchain_core.output_parsers import StrOutputParser
+
 
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.messages import HumanMessage,BaseMessage, ToolMessage, AIMessage
@@ -26,15 +28,15 @@ embedding_model = BedrockEmbeddings(
     model_kwargs = {"input_type": "search_query"}
 )
 
+EMBED_DIMENSION = len(embedding_model.embed_documents(["hello world"])[0])
+print(f"Embedding dimension: {EMBED_DIMENSION}")
+
 def get_llm(model_name: str = "accounts/fireworks/models/llama-v3p1-405b-instruct") -> BaseChatModel:
     if "fireworks" in model_name:
         llm = ChatFireworks(model=model_name)
     else:
         llm = ChatBedrock(model=model_name)
     return llm
-
-EMBED_DIMENSION = len(embedding_model.embed_documents(["hello world"])[0])
-print(f"Embedding dimension: {EMBED_DIMENSION}")
 
 
 # retriever
@@ -110,17 +112,17 @@ vectorstore = MongoDBAtlasVectorSearch(
     embedding=embedding_model,
     text_key="content",
     index_name="default",
-)
-retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
-ckpt_db_name = os.getenv("MONGODB_CKPT_DB_NAME", "test_ckp_2")
-ckpt_collection_name = os.getenv("MONGODB_CKPT_COLL_NAME","test_ckpt_2")
+)
+# retriever = vectorstore.as_retriever(search_type="mmr",search_kwargs={"k": 5, "post_filter":[{"$addFields": {"score": {"$meta": "vectorSearchScore"}}}, {"$match":{"score": {"$gte": 0.9}}}]})
+retriever = vectorstore.as_retriever(search_type="similarity_score_threshold",
+                search_kwargs={'score_threshold': 0.75})
+
 # Memory checkpoint saver for graph
-memory_saver = MongoDBSaver(client, ckpt_db_name, ckpt_collection_name)
+memory_saver = MongoDBSaver(client)
 
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
-### Utils methods
 def extract_n_load_relevant_info(query: str):
     """ Searches for relevant realtime information and then extracts text from URL sources and loads it into the vectorstore 
         Works as memory for the LLM Agent
